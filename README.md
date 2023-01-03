@@ -1,7 +1,7 @@
 ![Discord](https://img.shields.io/discord/803471871617531904?style=flat-square)
 ![macOS](https://img.shields.io/badge/macOS-✓-success?logo=apple&style=flat-square&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-✓-success?logo=windows-95&style=flat-square&logoColor=white)
-![GitHub all releases](https://img.shields.io/github/downloads/ripnet/streamdeck-hubitat/total?style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/spectre3ooo/streamdeck-hubitat/total?style=flat-square)
 
 # steamdeck-hubitat
 [Hubitat](https://hubitat.com/) integration for the [Elgato Stream Deck](https://www.elgato.com/en/gaming/stream-deck)
@@ -21,7 +21,7 @@ Install the [Maker API](https://docs.hubitat.com/index.php?title=Maker_API) app 
 Make note of your `API_URL` and your `access_token`. ![](resources/readme/access_token.png)
 
 ### Stream Deck
-Download the latest release from the [Releases](https://github.com/ripnet/streamdeck-hubitat/releases) page.
+Download the latest release from the [Releases](https://github.com/spectre3ooo/streamdeck-hubitat/releases) page.
 
 You should see the new category in the Stream Deck App
 ![](resources/readme/new_category.png)

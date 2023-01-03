@@ -119,6 +119,17 @@ class StreamDeck extends Emitter {
         });
     }
 
+    setTitle(context, title) {
+        this.sendMessage({
+            'event': 'setTitle',
+            'context': context,
+            'payload': {
+                title: title,
+                target: DestinationEnum.HARDWARE_AND_SOFTWARE,
+            }
+        });
+    }
+
     getGlobalSettings() {
         this.sendMessage({'event': 'getGlobalSettings', 'context': this.inPluginUUID});
     }

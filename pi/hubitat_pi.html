@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>com.ripnet.hubitat PI</title>
+    <title>com.spectre3ooo.hubitat PI</title>
     <link rel="stylesheet" href="sdpi.css">
 </head>
 <body>
@@ -117,12 +117,12 @@
         action = $sd.actionInfo.action;
         $('.action-setLevel').hide();
         $('.multiSetting').hide();
-        if (action === 'com.ripnet.hubitat.setswitch.action') {
+        if (action === 'com.spectre3ooo.hubitat.setswitch.action') {
             $('.action-set').show();
         } else {
             $('.action-set').hide();
         }
-        if (action === 'com.ripnet.hubitat.multidimmer.action') {
+        if (action === 'com.spectre3ooo.hubitat.multidimmer.action') {
             $('.multiSetting').show();
         }
         $sd.sendEvents(); // ready!
@@ -187,13 +187,14 @@
             $('#' + key).val(value);
         }
         getDevices();
+        getFans();
     }
 
     function receivedSettings(data) {
         localSettings = data.payload.settings || {};
         console.log(data);
         console.log(action);
-        if (action === 'com.ripnet.hubitat.setswitch.action') {
+        if (action === 'com.spectre3ooo.hubitat.setswitch.action') {
             if ("action" in localSettings) {
                 $('input[type="radio"][name="action"][value="'+localSettings.action+'"]').attr('checked', true);
                 if (localSettings.action === 'setLevel') {
@@ -221,22 +222,35 @@
                     devices.push(d);
                 }
             });
-            populateDevices();
+            populateDevices("device");
         })
     }
 
-    function populateDevices() {
+    function getFans() {
+        $.get(globalSettings.hostname + "/devices/all?access_token=" + globalSettings.access_token, function(data) {
+            fans = [];
+            data.forEach(function(fan) {
+                if (fan.capabilities.includes("Fan")) {
+                    let f = {id: fan.id, name: fan.label}
+                    fans.push(f);
+                }
+            });
+            populateDevices("fan");
+        })
+    }
+
+    function populateDevices(id) {
         // load the devices from the array into the HTML select
-        let d = $('#device');
+        let d = $(`#${id}`);
         d.empty();
-        if (!localSettings.hasOwnProperty('device')) {
+        if (!localSettings.hasOwnProperty(id)) {
             d.append($("<option />"))
         }
         devices.forEach(function(device) {
             d.append($("<option />").val(device.id).text(device.name));
         });
-        if (localSettings.hasOwnProperty('device')) {
-            $('#device option[value="'+ localSettings.device+'"]').prop('selected', true);
+        if (localSettings.hasOwnProperty(id)) {
+            $(`#${id} option[value="${localSettings.device}"]`).prop('selected', true);
         }
     }
 
